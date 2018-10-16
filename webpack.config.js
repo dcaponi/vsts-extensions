@@ -78,12 +78,7 @@ module.exports = {
             OfficeFabric: path.resolve(__dirname, "node_modules/office-ui-fabric-react/lib"),
             VSSUI: path.resolve(__dirname, "node_modules/vss-ui"),
             Common: path.resolve(__dirname, "src/Common"),
-            BugBashPro: path.resolve(__dirname, "src/Apps/BugBashPro/scripts"),
-            Checklist: path.resolve(__dirname, "src/Apps/Checklist/scripts"),
             ControlsLibrary: path.resolve(__dirname, "src/Apps/ControlsLibrary/scripts"),
-            OneClick: path.resolve(__dirname, "src/Apps/OneClick/scripts"),
-            PRWorkItems: path.resolve(__dirname, "src/Apps/PRWorkItems/scripts"),
-            RelatedWits: path.resolve(__dirname, "src/Apps/RelatedWits/scripts")
         }
     },
     module: {

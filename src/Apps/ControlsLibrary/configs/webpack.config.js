@@ -3,12 +3,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const config = {
     entry: {
-        "ControlsLibrary/scripts/MultiValueControl": "./src/Apps/ControlsLibrary/scripts/MultiValueControl.tsx",
-        "ControlsLibrary/scripts/PatternControl": "./src/Apps/ControlsLibrary/scripts/PatternControl.tsx",
-        "ControlsLibrary/scripts/PlainTextControl": "./src/Apps/ControlsLibrary/scripts/PlainTextControl.tsx",
-        "ControlsLibrary/scripts/SliderControl": "./src/Apps/ControlsLibrary/scripts/SliderControl.tsx",
-        "ControlsLibrary/scripts/RatingControl": "./src/Apps/ControlsLibrary/scripts/RatingControl.tsx",
-        "ControlsLibrary/scripts/DateTimeControl": "./src/Apps/ControlsLibrary/scripts/DateTimeControl.tsx"
+      "ControlsLibrary/scripts/SimpleTextArea": "./src/Apps/ControlsLibrary/scripts/SimpleTextArea.tsx",
     },
     plugins: [
         new CopyWebpackPlugin([

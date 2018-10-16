@@ -1,39 +1,22 @@
 # VSTS Work item form control library
-This extension is a library of several custom controls targeting work item form. A work item form in VSTS can be extended via extensions. Users can write their own custom controls, groups or pages that would show up in VSTS work item form in web. For reference, visit <a href="https://docs.microsoft.com/en-us/vsts/extend/develop/add-workitem-extension?view=vsts">Extend the work item form</a>.
+This extension is a working library of a number of custom controls targeting the work item form. It provides some rudimentary functionality to your work item forms without adding any functionality one wouldnt expect.
 
 If you are using TFS, you can add these controls to work item form via work item type xml file - <a href="https://docs.microsoft.com/en-us/vsts/extend/develop/configure-workitemform-extensions?view=vsts">Add extensions in work item form via work item type definition xml</a>.
 
 If you are using VSTS, you can add them from process admin page -<a href="https://docs.microsoft.com/en-us/vsts/work/customize/process/custom-controls-process?view=vsts">Add or modify a custom control for a process and WIT</a>.
 
-A work item form custom control can take some user inputs to configure the control. I'll describe what inputs are required for eah of the control below.
+* <a href="#pattern">Simple Textarea Control</a>
 
-This extension is an attempt to provide samples to other users to help them write their own extensions targeting work item form. There are 6 work item control contributions in this extension -
+The code for this extension is on <a href="https://github.com/dcaponi/vsts-extensions/tree/master/src/ControlsLibrary">github</a>
 
-* <a href="#datetime">DateTime Control</a>
-* <a href="#pattern">Pattern Control</a>
-* <a href="#slider">Slider Control</a>
-* <a href="#rating">Rating Control</a>
-* <a href="#multivalue">Autocomplete Multivalue Control</a>
-* <a href="#plaintext">Plain Text Control</a>
-
-The code for this extension is on <a href="https://github.com/mohitbagra/vsts-extensions/tree/master/src/ControlsLibrary">github</a>
-
-<a name="datetime"></a>
-#### DateTime Control ####
-A custom date time control for DateTime fields which also lets users pick time, which is not possible by the default DateTime control on work item form.
-
-![Group](images/datetime.png)
-
-To select a date or time, click the calendar icon on the right.
-
-![Group](images/datetime2.png)
-
->*Inputs* -
->1. **FieldName** *(required)* - A DateTime field associated with this control. The value of the datetime control would be bound to this field's value.
+Credit goes to Mohit Bagra for his help in setting this up and for much of the code, on which, this extension is founded. The base for this project can be found at <a
+href="https://github.com/mohitbagra/vsts-extensions">github</a>
 
 <a name="pattern"></a>
-#### Pattern Control ####
-A custom text control for string or multiline string fields which restricts the field value to a certain regex pattern. Note that the restriction would only work in this custom control as the pattern would not apply to the actual work item field. If users enter a wrong pattern in this control, it'll show an error below the control but the work item would still be saveable because work item form extensions cannot block work item save right now. 
+#### Simple Textarea Control ####
+A custom textarea control for multiline string fields which can also restrict the field value to a certain regex pattern. Note that the restriction would only work in this custom control as the pattern would not apply to the actual work item field. If users enter a wrong pattern in this control, it'll show an error below the control but the work item would still be saveable because work item form extensions cannot block work item save right now.
+
+Additionally, this field provides all the functionality you would expect from a textarea tag in HTML. This is useful as one may use this to post raw strings to a VSTS service hook for later consumption within an API or other ecosystem. The multiline textarea provided by VSTS by default enables rich text editing which may cause undesirable results in your response.
 
 ![Group](images/pattern.png)
 
@@ -64,47 +47,3 @@ A custom control that shows a numeric field as a slider control
 >2. **MinValue** *(required)* - The min numeric value of the field.
 >3. **MaxValue** *(required)* - The max numeric value of the field.
 >3. **StepSize** *(required)* - The numeric step size for the slider.
-
-<a name="rating"></a>
-#### Rating Control ####
-A custom control that shows an integer field as a star rating control
-
-![Group](images/rating.png)
-
->*Inputs* -
->1. **FieldName** *(required)* - An integer field associated with this control. The value of the pattern control would be bound to this field's value.
->2. **MinValue** *(required)* - The min integer value of the field.
->3. **MaxValue** *(required)* - The max integer value of the field.
-
-<a name="multivalue"></a>
-#### Autocomplete Multivalue ####
-A custom control that lets user pick multiple values for a string (or a multiline string) field using an autocomplete widget.
-
-![Group](images/multivalue.png)
-
-![Group](images/multivalue_open.png)
-
->*Inputs* -
->1. **FieldName** *(required)* - An integer field associated with this control. The value of the pattern control would be bound to this field's value.
->2. **Values** *(required)* - A semicolon separated string of suggested values for the control.
-
-<a name="plaintext"></a>
-#### Plain Text Control ####
-A custom control that shows the configured markdown string as text. This control is not bound to any field. It supports markdown (https://github.com/markdown-it/markdown-it), so you can show rich text with links and images if you choose so. The control also looks for certain "patterns" in the string where it can replace certain text dynamically.
-For eg.- You can use ${@fieldValue} macro anywhere in the text and this text will be replaced during runtime by reading the field value from current work item.
-Eg: If the configured text is -
-
->1. Url: https://mbagra.visualstudio.com/DefaultCollection/customAgile/_workitems/edit/${@fieldValue=ID}
->2. Assigned to value is ${@fieldValue=Assigned To}
->3. State value is ${@fieldValue=State}
-
-It would be printed as -
->1. Url: https://mbagra.visualstudio.com/DefaultCollection/customAgile/_workitems/edit/208
->2. Assigned to value is Mohit Bagra mbagra@microsoft.com
->3. State value is New
-
-![Group](images/plaintext.png)
-
->*Inputs* -
->1. **Text** *(required)* - The text to show in the control.
->2. **MaxHeight** *(required)* - Maximum height to which the control should resize.

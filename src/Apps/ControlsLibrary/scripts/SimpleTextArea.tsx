@@ -1,4 +1,4 @@
-import "../css/PatternControl.scss";
+import "../css/SimpleTextArea.scss";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -12,31 +12,33 @@ import { Fabric } from "OfficeFabric/Fabric";
 import { TextField } from "OfficeFabric/TextField";
 import { css } from "OfficeFabric/Utilities";
 
-interface IPatternControlInputs {
+interface ISimpleTextAreaInputs {
     FieldName: string;
     Pattern: string;
     ErrorMessage?: string;
 }
 
-interface IPatternControlProps extends IWorkItemFieldControlProps {
+interface ISimpleTextAreaProps extends IWorkItemFieldControlProps {
     pattern: string;
     errorMessage: string;
 }
 
-interface IPatternControlState extends IWorkItemFieldControlState<string> {
+interface ISimpleTextAreaState extends IWorkItemFieldControlState<string> {
     hovered?: boolean;
-    focussed?: boolean;
+    focused?: boolean;
 }
 
-export class PatternControl extends WorkItemFieldControl<string, IPatternControlProps, IPatternControlState> {
+export class SimpleTextArea extends WorkItemFieldControl<string, ISimpleTextAreaProps, ISimpleTextAreaState> {
     public render(): JSX.Element {
-        const { value, hovered, focussed, error } = this.state;
-        const isActive = hovered || focussed || error;
+        const { value, hovered, focused, error } = this.state;
+        const isActive = hovered || focused || error;
         return (
             <Fabric className="fabric-container">
                 <TextField
-                    className={css("pattern-control", { invalid: !!error })}
+                    style={{height: 200}}
+                    className={css("simple-text-area", { invalid: !!error })}
                     value={value || ""}
+                    multiline={true}
                     borderless={!isActive}
                     onChanged={this._onChange}
                     onKeyDown={this._onInputKeyDown}
@@ -85,11 +87,11 @@ export class PatternControl extends WorkItemFieldControl<string, IPatternControl
     };
 
     private _onFocus = () => {
-        this.setState({ focussed: true });
+        this.setState({ focused: true });
     };
 
     private _onBlur = () => {
-        this.setState({ focussed: false });
+        this.setState({ focused: false });
     };
 
     private _onChange = (value: string) => {
@@ -99,10 +101,10 @@ export class PatternControl extends WorkItemFieldControl<string, IPatternControl
 
 export function init() {
     initializeIcons();
-    const inputs = WorkItemFieldControl.getInputs<IPatternControlInputs>();
+    const inputs = WorkItemFieldControl.getInputs<ISimpleTextAreaInputs>();
 
     ReactDOM.render(
-        <PatternControl
+        <SimpleTextArea
             fieldName={inputs.FieldName}
             pattern={inputs.Pattern}
             errorMessage={(inputs.ErrorMessage && inputs.ErrorMessage.trim()) || "The entered value does not match the control's pattern."}

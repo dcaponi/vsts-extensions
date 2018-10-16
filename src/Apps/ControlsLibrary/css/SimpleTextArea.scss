@@ -1,9 +1,9 @@
 @import "base";
 
 #ext-container {
-    .pattern-control {
+    .simple-text-area {
         .ms-TextField-fieldGroup {
-            height: 24px;
+            height: 100%;
             border-color: #eaeaea;
         }
 
@@ -11,6 +11,13 @@
             .ms-TextField-fieldGroup {
                 border-color: #da0a00;
             }
+        }
+
+        textarea {
+          margin: 0;
+          height: 100%;
+          padding: 2px;
+          line-height: 25px;
         }
 
         input {

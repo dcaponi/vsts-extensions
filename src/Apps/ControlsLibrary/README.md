@@ -14,9 +14,11 @@ href="https://github.com/mohitbagra/vsts-extensions">github</a>
 
 <a name="pattern"></a>
 #### Simple Textarea Control ####
-A custom textarea control for multiline string fields which can also restrict the field value to a certain regex pattern. Note that the restriction would only work in this custom control as the pattern would not apply to the actual work item field. If users enter a wrong pattern in this control, it'll show an error below the control but the work item would still be saveable because work item form extensions cannot block work item save right now.
+This field is nothing more than a simple PlainText textarea like one would find in standard HTML forms. This enables developers to include VSTS work items in a solution ecosystem where capturing only text values is necessary and rich text format is not allowed or required.
 
-Additionally, this field provides all the functionality you would expect from a textarea tag in HTML. This is useful as one may use this to post raw strings to a VSTS service hook for later consumption within an API or other ecosystem. The multiline textarea provided by VSTS by default enables rich text editing which may cause undesirable results in your response.
+That means, back end developers no longer need to write HTML parsers to sift out and throw away the formatting tags that the multiline field inserts in the standard VSTS input. Additionally, for every line break a newline `\n` character is automatically inserted, giving APIs and workers a consistent character to split lines on.
+
+One additional feature is regex validation. A regex can be supplied in the field options on your process customization page that can help you define how your input should look and tell users if/when the input may become problematic.
 
 ![Group](images/pattern.png)
 
@@ -35,15 +37,3 @@ If the value matches the pattern, then no error would be shown. Note that work i
 2. **Phone Number** - ^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$
 3. **Guid** - ^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
 4. **URL** - https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)
-
-<a name="slider"></a>
-#### Slider Control ####
-A custom control that shows a numeric field as a slider control
-
-![Group](images/slider.png)
-
->*Inputs* -
->1. **FieldName** *(required)* - A numeric field (Integer or Decimal) associated with this control. The value of the pattern control would be bound to this field's value.
->2. **MinValue** *(required)* - The min numeric value of the field.
->3. **MaxValue** *(required)* - The max numeric value of the field.
->3. **StepSize** *(required)* - The numeric step size for the slider.
